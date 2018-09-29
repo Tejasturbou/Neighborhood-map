@@ -2,6 +2,67 @@
   text-align: center;
 }
 
+#hamburger{
+  display: none;
+}
+
+#filter{
+  width: 300px;
+  left: 0;
+  height: 100%;
+  background-color: #fff;
+  text-align: center;
+}
+
 #map{
-  height: 100vh;
+  /*height: 100vh;*/
+  bottom:0px;
+  height: 100%;
+  left: 342px;
+  position: absolute;
+  right: 0px;
+}
+
+ul{
+  list-style-type: none;
+  text-align: left;
+  margin-top: 25px;
+}
+
+ul li{
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+#source {
+  position: relative;
+  bottom: -20px;
+  right: 0;
+  text-align: right;
+}
+
+@media screen and (min-width: 300px) and (max-width: 1000px) {
+  #hamburger{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    left: 15px;
+    top: 10px;
+    display: block;
+    z-index: 99;
+  }
+
+  #filter{
+    display: none;
+  }
+
+  #map{
+    left: 0;
+    z-index: 1;
+  }
 }
