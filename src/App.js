@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import hamburger from './hamburger.svg';
-import Search from './Search';
+import Locations from './Locations';
 
 class App extends Component {
 
@@ -19,6 +18,7 @@ class App extends Component {
     this.fetchLocations()
   }
 
+  /*Fetch data from FourSquare API*/
   fetchLocations = () => {
     const endpoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -40,6 +40,7 @@ class App extends Component {
       })
   }
 
+  /*Load the script and render map*/
   renderMap = () => {
     const script = document.createElement("script");
     script.async = true;
@@ -49,6 +50,7 @@ class App extends Component {
     window.initMap = this.initMap;
   }
 
+  /*Initialize map, make markers for each location and bound the map based on all markers position*/
   initMap = () => {
 
     let map = new window.google.maps.Map(document.getElementById('map'), {
@@ -72,17 +74,15 @@ class App extends Component {
       bounds.extend(marker.position);
 
       marker.addListener('click', function() {
-        if (infowindow.marker !== marker) {
           infowindow.marker = marker;
           infowindow.setContent('<strong><h3 style="margin: 3px 0 5px;">' + Venue.venue.name + '</h3></strong>' +
             '<div> Type: <strong>' + Venue.venue.categories[0].name + '</strong> </div>' +
             '<div> Address: ' + Venue.venue.location.address + '</div>');
           infowindow.open(map, marker);
-          // Make sure the marker property is cleared if the infowindow is closed.
+          //marker property is cleared if the infowindow is closed.
           infowindow.addListener('closeclick', function(){
             infowindow.setMarker = null;
           });
-        }
       });
       return 0
     })
@@ -93,6 +93,9 @@ class App extends Component {
 
   }
 
+  /*Search for a place in Mumbai
+    Note: It will only display marker if the query typed is from the list
+  */
   search = (query) => {
     this.setState({ query })
     this.state.allMarkers.map(marker => marker.setVisible(true))
@@ -110,6 +113,7 @@ class App extends Component {
         marker.setVisible(false)
       })
       this.setState({ hideLocations: hideMarkers })
+
     } else {
       this.setState({ venues: this.state.showAllLocations })
       this.state.allMarkers.forEach(marker => {
@@ -118,6 +122,9 @@ class App extends Component {
     }
   }
 
+  /*If a location is selected from the list then trigger the event listener Click
+    on the marker related to the event
+  */
   selection = (elem) => {
     this.state.allMarkers.map(marker => {
       if (elem.venue.name === marker.title) {
@@ -129,6 +136,7 @@ class App extends Component {
     return 0
   }
 
+  /*Animate marker: Bounce for 1.7seconds*/
   animateMarker = (marker) => {
      marker.setAnimation(window.google.maps.Animation.BOUNCE)
      setTimeout(() => {
@@ -138,12 +146,9 @@ class App extends Component {
 
   render() {
     return (
-      <div id="container">
-        <div id='hamburger'>
-          <img src={hamburger} alt="hamburger icon"/>
-        </div>
-        <Search venues={this.state.venues} query={this.state.query} search={this.search} selection={this.selection}/>
-        <div id="map"></div>
+      <div id="container" role="main">
+        <Locations venues={this.state.venues} query={this.state.query} search={this.search} selection={this.selection}/>
+        <div id="map" role="application" tabIndex="-1"></div>
       </div>
     );
   }

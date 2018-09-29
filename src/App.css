@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-#hamburger{
-  display: none;
-}
-
 #filter{
-  width: 300px;
+  width: 100%;
   left: 0;
   height: 100%;
   background-color: #fff;
@@ -15,10 +11,9 @@
 }
 
 #map{
-  /*height: 100vh;*/
+  height: 100vh;
   bottom:0px;
-  height: 100%;
-  left: 342px;
+  left: 0px;
   position: absolute;
   right: 0px;
 }
@@ -32,6 +27,7 @@ ul{
 ul li{
   margin-bottom: 8px;
   cursor: pointer;
+  font-size: 1em;
 }
 
 a{
@@ -41,28 +37,71 @@ a{
 
 #source {
   position: relative;
-  bottom: -20px;
-  right: 0;
+  bottom: 2px;
+  right: 15px;
   text-align: right;
+  padding-bottom: 5px;
 }
 
-@media screen and (min-width: 300px) and (max-width: 1000px) {
-  #hamburger{
-    width: 30px;
-    height: 30px;
-    position: relative;
-    left: 15px;
-    top: 10px;
-    display: block;
-    z-index: 99;
-  }
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 16px;
+  top: 2vh;
+  margin-right: 5px;
+}
 
-  #filter{
-    display: none;
+
+.bm-burger-bars {
+    background: #373a47;
+}
+
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+  padding: 15px;
+  margin-right: 10px;
+  margin-bottom: 2px;
+}
+
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+
+.bm-menu {
+  background: rgb(255,255,255);
+}
+
+
+.bm-item-list {
+  margin: auto;
+  text-align: left;
+}
+
+@media screen and (max-width: 999px) {
+  .bm-item-list {
+    padding: 0;
+  }
+  .bm-menu {
+    font-size: 0.8em;
+    width: 100%;
   }
 
   #map{
-    left: 0;
-    z-index: 1;
+    left: 0px;
+  }
+
+  .my-menu{
+    width: 100% !important;
   }
 }
+
+
+.bm-item {
+  display: inline-block;
+}
+
